@@ -1,4 +1,4 @@
-package umu.tds.proyecto;
+package umu.tds;
 
 /**
  * Hello world!
