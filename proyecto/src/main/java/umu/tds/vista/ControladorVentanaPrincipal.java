@@ -76,12 +76,12 @@ public class ControladorVentanaPrincipal {
     
     @FXML
     void modifyGasto(ActionEvent event) {
-    	//abrirPestaña("Eliminar Gasto", "/umu/tds/vista/VentanaEliminarGasto.fxml");
+    	abrirPestaña("Eliminar Gasto", "/umu/tds/VentanaModificarGasto.fxml");
     }
 
     @FXML
     void removeGasto(ActionEvent event) {
-    	//abrirPestaña("Modificar Gasto", "/umu/tds/vista/VentanaModificarGasto.fxml");
+    	abrirPestaña("Modificar Gasto", "/umu/tds/vista/VentanaEliminarGasto.fxml");
     }
 
     @FXML
