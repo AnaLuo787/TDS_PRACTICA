@@ -49,7 +49,15 @@ public class ControladorVentanaPrincipal {
             if (controlador instanceof ControladorAñadirGasto) {
                 ((ControladorAñadirGasto) controlador).setControladorPrincipal(this);
             }
-            /*if (controlador instanceof ControladorEliminarGasto) {
+            
+            /*if (controlador instanceof ControladorFiltrarGastos) {
+				((ControladorFiltrarGastos) controlador).setControladorPrincipal(this);
+			}
+            
+            if (controlador instanceof ControladorAlertas) {
+            	((ControladorAlertas) controlador).setControladorPrincipal(this);
+            }
+            if (controlador instanceof ControladorEliminarGasto) {
                 ((ControladorEliminarGasto) controlador).setControladorPrincipal(this);
             }
             if (controlador instanceof ControladorModificarGasto) {
@@ -86,7 +94,7 @@ public class ControladorVentanaPrincipal {
 
     @FXML
     void configurarAlertas(ActionEvent event) {
-    	//abrirPestaña("Configurar Alerta", "/umu/tds/vista/VentanaConfigurarAlertas.fxml");
+    	abrirPestaña("Configurar Alerta", "/umu/tds/VentanaAlertas.fxml");
     }
 
     @FXML
@@ -96,7 +104,7 @@ public class ControladorVentanaPrincipal {
 
     @FXML
     void filtro(ActionEvent event) {
-    	//abrirPestaña("Filtrar Gastos", "/umu/tds/vista/VentanaFiltro.fxml");
+    	abrirPestaña("Filtrar Gastos", "/umu/tds/VentanaFiltrarGastos.fxml");
     }
 
     @FXML
