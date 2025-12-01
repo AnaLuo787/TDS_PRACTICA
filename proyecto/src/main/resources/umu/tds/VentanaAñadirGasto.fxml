@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="umu.tds.vista.ControladorAñadirGasto">
-    <VBox alignment="TOP_CENTER" layoutX="14.0" prefHeight="307.0" prefWidth="503.0" spacing="12.0" style="-fx-background-color: lightblue;" AnchorPane.bottomAnchor="-16.80000000000001" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="-258.8" AnchorPane.topAnchor="0.0">
+    <VBox alignment="TOP_CENTER" prefHeight="307.0" prefWidth="503.0" spacing="20.0" style="-fx-background-color: lightblue;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
        <padding>
           <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
        </padding>
@@ -45,7 +45,7 @@
           <HBox spacing="10.0">
              <children>
                 <Label text="Cantidad" />
-                <TextField fx:id="cantidadGasto" HBox.hgrow="ALWAYS" />
+                <TextField fx:id="cantidadGasto" prefHeight="26.0" prefWidth="306.0" HBox.hgrow="ALWAYS" />
              </children>
           </HBox>
 
@@ -56,10 +56,10 @@
              </children>
           </HBox>
 
-          <HBox spacing="20.0">
+          <HBox prefHeight="40.0" prefWidth="470.0" spacing="20.0">
              <children>
-                <Button fx:id="add" mnemonicParsing="false" onAction="#addGasto" style="-fx-background-color: gray; -fx-text-fill: white; -fx-font-weight: bold;" text="Añadir Gasto" HBox.hgrow="ALWAYS" />
-                <Button fx:id="cancel" mnemonicParsing="false" onAction="#cancelarAddGasto" style="-fx-background-color: lightgray; -fx-font-weight: bold;" text="Cancelar" HBox.hgrow="ALWAYS" />
+                <Button fx:id="add" mnemonicParsing="false" onAction="#addGasto" prefHeight="70.0" prefWidth="200.0" style="-fx-background-color: gray; -fx-text-fill: white; -fx-font-weight: bold;" text="Añadir Gasto" HBox.hgrow="ALWAYS" />
+                <Button fx:id="cancel" mnemonicParsing="false" onAction="#cancelarAddGasto" prefHeight="45.0" prefWidth="79.0" style="-fx-background-color: lightgray; -fx-font-weight: bold;" text="Cancelar" HBox.hgrow="ALWAYS" />
              </children>
           </HBox>
        </children>

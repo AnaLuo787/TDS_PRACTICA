@@ -18,8 +18,8 @@
         <menus>
           <Menu mnemonicParsing="false" text="Archivo">
             <items>
-                  <MenuItem mnemonicParsing="false" text="Ventana de inicio" />
-              <MenuItem mnemonicParsing="false" text="Salir" />
+                  <MenuItem fx:id="menuVentanaPrincipal" mnemonicParsing="false" onAction="#volverAlInicio" text="Ventana de inicio" />
+              	  <MenuItem fx:id="menuSalir" mnemonicParsing="false" onAction="#salirDeLaAplicacion" text="Salir" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Visualizar">
@@ -67,10 +67,10 @@
    <bottom>
       <VBox prefHeight="69.0" prefWidth="600.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
          <children>
-            <TextArea fx:id="terminal" editable="false" style="-fx-control-inner-background: gray; -fx-text-fill: white;" wrapText="true" />
+            <TextArea fx:id="terminal" editable="false" style="-fx-control-inner-background: gray; -fx-text-fill: white;" wrapText="true" VBox.vgrow="ALWAYS" />
          </children></VBox>
    </bottom>
    <center>
-      <TabPane fx:id="tabPane" prefHeight="400.0" prefWidth="400.0" BorderPane.alignment="CENTER" />
+      <TabPane fx:id="tabPane" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>

@@ -1,6 +1,8 @@
 package umu.tds.modelo;
 
 import java.time.LocalDate;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /*
 - id : Integer
@@ -12,33 +14,27 @@ import java.time.LocalDate;
 */
 
 public class Gasto {
-	private Integer id;				//identifica al gasto
+	@JsonProperty("Nombre del Gasto")
 	private String nombreGasto;
-	private LocalDate fecha;
-	private Double cantidad;
+	@JsonProperty("Categoria")
 	private Categoria categoria;
+	@JsonProperty("Cantidad")
+	private Double cantidad;
+	@JsonProperty("Fecha")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+	private LocalDate fecha;
 	
-	public Gasto(Integer id, String nombre, LocalDate fecha, Double cantidad, Categoria categoria) {
-		this.id = id;				//necesario para identificar al objeto en la Base de Datos
-		this.nombreGasto = nombre;
-		this.fecha = fecha;
-		this.cantidad = cantidad;
-		this.categoria = categoria;
-	}
+	public Gasto() {}	//necesario para Jackson
 	
-	public Gasto(String nombre, LocalDate fecha, Double cantidad, Categoria categoria) {
+	public Gasto(String nombre, Categoria categoria, Double cantidad, LocalDate fecha) {
 		this.nombreGasto = nombre;
-		this.fecha = fecha;
-		this.cantidad = cantidad;
 		this.categoria = categoria;
+		this.cantidad = cantidad;
+		this.fecha = fecha;
 	}
 	
 	//A parte de necesitar los métodos get(), incluiremos los métodos set()
 	// para los updates de los gastos
-	public Integer getID() {
-		return id;
-	}
-	
 	public String getNombre() {
 		return nombreGasto;
 	}
@@ -69,5 +65,13 @@ public class Gasto {
 	
 	public void setCategoria(Categoria nuevaCategoria) {
 		this.categoria = nuevaCategoria;
+	}
+	
+	@Override
+	public String toString() {
+	    return "Gasto: " + nombreGasto
+	    		+ ", Categoria: " + categoria.getNombre()
+	    		+ ", Cantidad: " + cantidad + "€"
+	    		+ ", Fecha: " + fecha;
 	}
 }

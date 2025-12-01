@@ -17,10 +17,12 @@ public class AppGastos extends Application {
         contenedor.getChildren().add(etiqueta);*/
 		
 		Parent contenedor = FXMLLoader.load(getClass().getResource("VentanaPrincipalGastos.fxml"));
-        Scene escena = new Scene(contenedor, 600, 400);	//tamaño de la mini ventana al ejecutar
+        Scene escena = new Scene(contenedor, 1000, 500);	//tamaño de la mini ventana al ejecutar	
         
         ventanaPrincipal.setTitle("Aplicación: Gestión de Gastos");
         ventanaPrincipal.setScene(escena);
+        //para que el usuario no amplíe la aplicación y siempre tenga el mismo tamaño
+        ventanaPrincipal.setResizable(false);
         ventanaPrincipal.show();
 	}
 	

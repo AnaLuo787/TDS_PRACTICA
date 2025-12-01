@@ -1,5 +1,8 @@
 package umu.tds.vista;
 
+///AÑADIR MODIFICACIONES DEL GITHUB
+///La terminal irá en una clase main aparte, con el mismo controlador y modelo pero diferente vista
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -8,13 +11,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 
 public class ControladorVentanaPrincipal {
+	@FXML private Tab ventanaPrincipal; //pestaña inicial
+	@FXML private MenuItem salir;
 	@FXML private TabPane tabPane;	//en él se mostrarán las diferentes pestañas al pulsar los botones
     @FXML private ResourceBundle resources;
     @FXML private URL location;
@@ -32,14 +37,22 @@ public class ControladorVentanaPrincipal {
         terminal.appendText(texto + "\n");
     }
     
-    private void mostrarNotificacion(String mensaje) {
+    ///Correspondientes a las alertas
+    /*private void mostrarNotificacion(String mensaje) {
         Text texto = new Text(mensaje);
         texto.setStyle("-fx-fill: #333; -fx-font-size: 13px;");
         notif.getChildren().add(texto);
-    }
+    }*/
 
     private void abrirPestaña(String titulo, String rutaFXML) {
     	try {
+    		// Si ya existe una pestaña con ese título, seleccionarla y salir
+            for (Tab tab : tabPane.getTabs()) {
+                if (tab.getText().equals(titulo)) {
+                    tabPane.getSelectionModel().select(tab);
+                    return;
+                }
+            }
     		//Cargamos la pestaña correspondiente
     		FXMLLoader loader = new FXMLLoader(getClass().getResource(rutaFXML));
             Parent contenido = loader.load();
@@ -49,16 +62,21 @@ public class ControladorVentanaPrincipal {
             if (controlador instanceof ControladorAñadirGasto) {
                 ((ControladorAñadirGasto) controlador).setControladorPrincipal(this);
             }
-            /*if (controlador instanceof ControladorEliminarGasto) {
+            if (controlador instanceof ControladorEliminarGasto) {
                 ((ControladorEliminarGasto) controlador).setControladorPrincipal(this);
             }
-            if (controlador instanceof ControladorModificarGasto) {
+            /*if (controlador instanceof ControladorModificarGasto) {
                 ((ControladorModificarGasto) controlador).setControladorPrincipal(
             }
-            ...*/
+            if (controlador instanceof ControladorFiltrarGastos) {
+		((ControladorFiltrarGastos) controlador).setControladorPrincipal(this);
+	    }
+            if (controlador instanceof ControladorAlertas) {
+            	((ControladorAlertas) controlador).setControladorPrincipal(this);
+            }*/
             
             Tab nuevaTab = new Tab(titulo);
-            nuevaTab.setClosable(true);
+            nuevaTab.setClosable(true);	
             nuevaTab.setContent(contenido);
             tabPane.getTabs().add(nuevaTab);
             tabPane.getSelectionModel().select(nuevaTab);
@@ -76,27 +94,38 @@ public class ControladorVentanaPrincipal {
     
     @FXML
     void modifyGasto(ActionEvent event) {
-    	//abrirPestaña("Eliminar Gasto", "/umu/tds/vista/VentanaEliminarGasto.fxml");
+    	//abrirPestaña("Modificar Gasto", "/umu/tds/VentanaModificarGasto.fxml");
     }
 
     @FXML
     void removeGasto(ActionEvent event) {
-    	//abrirPestaña("Modificar Gasto", "/umu/tds/vista/VentanaModificarGasto.fxml");
+    	abrirPestaña("Eliminar Gasto", "/umu/tds/VentanaEliminarGasto.fxml");
     }
 
     @FXML
     void configurarAlertas(ActionEvent event) {
-    	//abrirPestaña("Configurar Alerta", "/umu/tds/vista/VentanaConfigurarAlertas.fxml");
+    	//abrirPestaña("Configurar Alerta", "/umu/tds/VentanaAlertas.fxml");
     }
 
     @FXML
     void crearCuentaCompartida(ActionEvent event) {
-    	//abrirPestaña("Crear Cuenta Compartida", "/umu/tds/vista/VentanaCuentaCompartida.fxml");
+    	//abrirPestaña("Crear Cuenta Compartida", "/umu/tds/VentanaCuentaCompartida.fxml");
     }
 
     @FXML
     void filtro(ActionEvent event) {
-    	//abrirPestaña("Filtrar Gastos", "/umu/tds/vista/VentanaFiltro.fxml");
+    	//abrirPestaña("Filtrar Gastos", "/umu/tds/VentanaFiltrarGastos.fxml");
+    }
+    
+    @FXML
+    void volverAlInicio(ActionEvent event) {
+        tabPane.getTabs().clear();
+        mostrarEnTerminal("Has vuelto a la ventana principal.");
+    }
+    
+    @FXML
+    void salirDeLaAplicacion(ActionEvent event) {
+    	System.exit(0);
     }
 
     @FXML
@@ -109,6 +138,10 @@ public class ControladorVentanaPrincipal {
         assert modify != null : "fx:id=\"modify\" was not injected: check your FXML file 'VentanaPrincipalGastos.fxml'.";
         assert notif != null : "fx:id=\"notif\" was not injected: check your FXML file 'VentanaPrincipalGastos.fxml'.";
         assert remove != null : "fx:id=\"remove\" was not injected: check your FXML file 'VentanaPrincipalGastos.fxml'.";
+        
+        //Ocultar barra de pestañas
+        tabPane.setTabMaxHeight(0);
+        tabPane.setTabMinHeight(0);
         
         //Pestañas
         tabPane.getSelectionModel().selectedItemProperty().addListener((obs, oldTab, newTab) -> {

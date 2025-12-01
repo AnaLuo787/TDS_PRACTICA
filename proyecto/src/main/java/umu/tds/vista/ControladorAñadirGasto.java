@@ -1,5 +1,10 @@
 package umu.tds.vista;
 
+import umu.tds.modelo.Categoria;
+import umu.tds.modelo.Gasto;
+import umu.tds.repository.RepositorioGasto;
+import umu.tds.repository.impl.RepositorioGastoJSON;
+
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -26,11 +31,13 @@ public class ControladorAñadirGasto {
     public void setControladorPrincipal(ControladorVentanaPrincipal controlador) {
         this.controladorVentanaPrincipal = controlador;
     }
+    
+    private final RepositorioGasto repositorio = new RepositorioGastoJSON().getInstance();
 
     @FXML
     void addGasto(ActionEvent event) {
     	String nombre = nombreGasto.getText();
-        String categoria = categoriasCreadas.getValue();
+        String categoriaStr = categoriasCreadas.getValue();
         String cantidadStr = cantidadGasto.getText();
         LocalDate fecha = fechaGasto.getValue();
         //Comprobamos que se han rellenado todos los campos correctamente
@@ -38,7 +45,7 @@ public class ControladorAñadirGasto {
         	controladorVentanaPrincipal.mostrarEnTerminal("ERROR: añade nombre al gasto");
         	return;
         }
-        if (categoria == null) {
+        if (categoriaStr == null) {
         	controladorVentanaPrincipal.mostrarEnTerminal("ERROR: selecciona una categoría");
         	return;
         }
@@ -57,9 +64,10 @@ public class ControladorAñadirGasto {
         	controladorVentanaPrincipal.mostrarEnTerminal("ERROR: la cantidad es inválida (ej: 23.45)");
             return;
         }
-
-        ///Aquí debe ir la persistencia
-        controladorVentanaPrincipal.mostrarEnTerminal("Gasto añadido: " + nombre + " en categoría " + categoria + " por " + cantidad + " € el " + fecha);
+        Categoria categoria = new Categoria(categoriaStr);
+        Gasto nuevo = new Gasto(nombre, categoria, cantidad, fecha);	//persistencia
+        repositorio.save(nuevo);
+        controladorVentanaPrincipal.mostrarEnTerminal("Gasto añadido: " + nombre + " en categoría " + categoria.getNombre() + " por " + cantidad + " € el " + fecha);
         limpiarFormulario();
     }
 
