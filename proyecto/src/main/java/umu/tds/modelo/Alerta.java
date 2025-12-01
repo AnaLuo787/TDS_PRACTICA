@@ -11,14 +11,13 @@ import java.time.LocalDateTime;
 */
 
 public class Alerta {
-	
-	//ATRIBUTOS
+	//Atributos
 	private Categoria categoria;
 	private LocalDateTime fecha;
 	private double cantidad;
 	private int id;
 	
-	//CONSTRUCTOR
+	//Constructor
 	public Alerta(LocalDateTime fecha, double cantidad, int id) {
 		this.fecha = fecha;
 		this.cantidad = cantidad;
@@ -29,13 +28,15 @@ public class Alerta {
 		this.categoria = categoria;
 	}
 	
-	//METODOS DE CONSULTA
+	//Métodos de consulta
 	public Categoria getCategoria() {
 		return categoria;
 	}
+
 	public LocalDateTime getFecha() {
 		return fecha;
 	}
+
 	public double getCantidad() {
 		return cantidad;
 	}
@@ -43,6 +44,4 @@ public class Alerta {
 	public int getId() {
 		return id;
 	}
-
-	
 }

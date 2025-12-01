@@ -1,10 +1,5 @@
 package umu.tds.controlador;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
-import umu.tds.modelo.Categoria;
-
 public class Controlador {
 
 	///Métodos referentes a las Historias de Usuario
@@ -24,12 +19,15 @@ public class Controlador {
 	public void configurarAlerta() {
 		
 	}
+
 	public void visualizarAlerta() {
 		 
 	}
+
 	public void comprobarAlertas() {//comprobar que alertas han saltado / caducado
 		
 	}
+
 	public void importarGastos() {
 		
 	}
@@ -37,6 +35,7 @@ public class Controlador {
 	public void filtrarFecha() {
 		
 	}
+
 	public void filtrarCategoria(){
 		
 	}
@@ -44,6 +43,4 @@ public class Controlador {
 	public void filtrarCombinacion() {
 		
 	}
-	
-	
 }

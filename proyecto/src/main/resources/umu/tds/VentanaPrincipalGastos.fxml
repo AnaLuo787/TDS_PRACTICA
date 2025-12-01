@@ -5,15 +5,16 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="umu.tds.vista.ControladorVentanaPrincipal">
    <top>
-      <MenuBar prefHeight="26.0" prefWidth="120.0" BorderPane.alignment="CENTER">
+      <MenuBar prefHeight="26.0" prefWidth="120.0" style="-fx-background-color: lightblue;" BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="Archivo">
             <items>
@@ -32,9 +33,9 @@
       </MenuBar>
    </top>
    <right>
-      <VBox fx:id="notif" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox fx:id="notif" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: lightgray;" BorderPane.alignment="CENTER">
          <children>
-            <Text fill="#0ed1b1" strokeType="OUTSIDE" strokeWidth="0.0" text="Notificaciones" textAlignment="CENTER">
+            <Text fill="#0ebfcf" strokeType="OUTSIDE" strokeWidth="0.0" text="Notificaciones" textAlignment="CENTER">
                <font>
                   <Font size="15.0" />
                </font>
@@ -46,13 +47,14 @@
       </VBox>
    </right>
    <left>
-      <VBox fx:id="botones" alignment="TOP_CENTER" prefHeight="308.0" prefWidth="143.0" spacing="20.0" BorderPane.alignment="CENTER">
+      <VBox fx:id="botones" alignment="TOP_CENTER" prefHeight="308.0" prefWidth="143.0" spacing="20.0" style="-fx-background-color: lightgray;" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="add" mnemonicParsing="false" text="Añadir Gasto" />
-            <Button fx:id="remove" mnemonicParsing="false" text="Eliminar Gasto" />
-            <Button fx:id="modify" mnemonicParsing="false" text="Modificar Gasto" />
-            <Button fx:id="filtro" mnemonicParsing="false" text="Filtrado de Gastos" />
-            <Button fx:id="alert" mnemonicParsing="false" text="Configurar Alertas" />
+            <Button fx:id="add" mnemonicParsing="false" onAction="#addGasto" text="Añadir Gasto" />
+            <Button fx:id="remove" mnemonicParsing="false" onAction="#removeGasto" text="Eliminar Gasto" />
+            <Button fx:id="modify" mnemonicParsing="false" onAction="#modifyGasto" text="Modificar Gasto" />
+            <Button fx:id="filtro" mnemonicParsing="false" onAction="#filtro" text="Filtrado de Gastos" />
+            <Button fx:id="alert" mnemonicParsing="false" onAction="#configurarAlertas" text="Configurar Alertas" />
+            <Button fx:id="account" mnemonicParsing="false" onAction="#crearCuentaCompartida" text="Cuenta Compartida" />
          </children>
          <BorderPane.margin>
             <Insets />
@@ -63,9 +65,12 @@
       </VBox>
    </left>
    <bottom>
-      <TextArea prefHeight="66.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
+      <VBox prefHeight="69.0" prefWidth="600.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
+         <children>
+            <TextArea fx:id="terminal" editable="false" style="-fx-control-inner-background: gray; -fx-text-fill: white;" wrapText="true" />
+         </children></VBox>
    </bottom>
    <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+      <TabPane fx:id="tabPane" prefHeight="400.0" prefWidth="400.0" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>
