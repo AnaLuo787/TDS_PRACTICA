@@ -1,12 +1,48 @@
 package umu.tds.modelo;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 /*
+- id : Integer
 - categoria : Categoria
 - fecha : LocalDateTime
 - saldo : double
---
-+ alertar()
 */
 
 public class Alerta {
+	
+	//ATRIBUTOS
+	private Categoria categoria;
+	private LocalDateTime fecha;
+	private double cantidad;
+	private int id;
+	
+	//CONSTRUCTOR
+	public Alerta(LocalDateTime fecha, double cantidad, int id) {
+		this.fecha = fecha;
+		this.cantidad = cantidad;
+		this.id = id;
+	}
+	public Alerta(LocalDateTime fecha, double cantidad, int id, Categoria categoria) {
+		this(fecha, cantidad, id);
+		this.categoria = categoria;
+	}
+	
+	//METODOS DE CONSULTA
+	public Categoria getCategoria() {
+		return categoria;
+	}
+	public LocalDateTime getFecha() {
+		return fecha;
+	}
+	public double getCantidad() {
+		return cantidad;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	
 }

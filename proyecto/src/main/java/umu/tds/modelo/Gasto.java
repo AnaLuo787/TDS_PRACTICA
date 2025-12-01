@@ -1,6 +1,7 @@
 package umu.tds.modelo;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /*
 - id : Integer
@@ -18,20 +19,26 @@ public class Gasto {
 	private Double cantidad;
 	private Categoria categoria;
 	
-	public Gasto(Integer id, String nombre, LocalDate fecha, Double cantidad, Categoria categoria) {
-		this.id = id;				//necesario para identificar al objeto en la Base de Datos
-		this.nombreGasto = nombre;
-		this.fecha = fecha;
-		this.cantidad = cantidad;
-		this.categoria = categoria;
-	}
-	
 	public Gasto(String nombre, LocalDate fecha, Double cantidad, Categoria categoria) {
 		this.nombreGasto = nombre;
 		this.fecha = fecha;
 		this.cantidad = cantidad;
 		this.categoria = categoria;
 	}
+	
+	public Gasto(Integer id, String nombre, Double cantidad, Categoria categoria) {
+		this(nombre, LocalDate.now(), cantidad, categoria);
+		this.id = id;	
+	}
+	
+	
+	public Gasto(Integer id, String nombre, LocalDate fecha, Double cantidad, Categoria categoria) {
+		this(nombre, fecha, cantidad, categoria);
+		this.id = id;				//necesario para identificar al objeto en la Base de Datos	
+	}
+	
+	
+	
 	
 	//A parte de necesitar los métodos get(), incluiremos los métodos set()
 	// para los updates de los gastos
