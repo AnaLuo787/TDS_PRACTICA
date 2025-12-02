@@ -1,12 +1,12 @@
 package umu.tds.vista;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.MenuButton;
-import javafx.scene.layout.VBox;
 
 public class ControladorAlertas {
 
@@ -17,13 +17,8 @@ public class ControladorAlertas {
     private URL location;
 
     @FXML
-    private CheckMenuItem anual;
-
-    @FXML
-    private VBox botones;
-
-    @FXML
     private MenuButton categoriaBottom;
+
 
     @FXML
     private MenuButton frecuenciaBotton;
@@ -35,18 +30,81 @@ public class ControladorAlertas {
     private CheckMenuItem semanal;
 
     @FXML
-    private Button volver;
+    private CheckMenuItem anual;
 
     @FXML
     void initialize() {
-        assert anual != null : "fx:id=\"anual\" was not injected: check your FXML file 'Descargas.fxml'.";
-        assert botones != null : "fx:id=\"botones\" was not injected: check your FXML file 'Descargas.fxml'.";
-        assert categoriaBottom != null : "fx:id=\"categoriaBottom\" was not injected: check your FXML file 'Descargas.fxml'.";
-        assert frecuenciaBotton != null : "fx:id=\"frecuenciaBotton\" was not injected: check your FXML file 'Descargas.fxml'.";
-        assert mensual != null : "fx:id=\"mensual\" was not injected: check your FXML file 'Descargas.fxml'.";
-        assert semanal != null : "fx:id=\"semanal\" was not injected: check your FXML file 'Descargas.fxml'.";
-        assert volver != null : "fx:id=\"volver\" was not injected: check your FXML file 'Descargas.fxml'.";
+        assert anual != null : "fx:id=\"anual\" was not injected: check your FXML file 'VentanaAlertas.fxml'.";
+        assert categoriaBottom != null : "fx:id=\"categoriaBottom\" was not injected: check your FXML file 'VentanaAlertas.fxml'.";
+        assert frecuenciaBotton != null : "fx:id=\"frecuenciaBotton\" was not injected: check your FXML file 'VentanaAlertas.fxml'.";
+        assert mensual != null : "fx:id=\"mensual\" was not injected: check your FXML file 'VentanaAlertas.fxml'.";
+        assert semanal != null : "fx:id=\"semanal\" was not injected: check your FXML file 'VentanaAlertas.fxml'.";
+        
+        // Texto del Button de Frecuencia
+        semanal.selectedProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal) {
+                frecuenciaBotton.setText("semanal");
+                mensual.setSelected(false);
+                anual.setSelected(false);
+            }
+        });
 
+        mensual.selectedProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal) {
+                frecuenciaBotton.setText("mensual");
+                semanal.setSelected(false);
+                anual.setSelected(false);
+            }
+        });
+
+        anual.selectedProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal) {
+                frecuenciaBotton.setText("anual");
+                semanal.setSelected(false);
+                mensual.setSelected(false);
+            }
+        });
+        
+        // Texto del Button de Categoría
+        setupCategoriaMenu();
+        
+    }
+    
+    
+    private void updateCategoriaText() {
+
+        List<String> seleccionados = new ArrayList<>();
+
+        for (Object item : categoriaBottom.getItems()) {
+            if (item instanceof CheckMenuItem) {
+                CheckMenuItem checkItem = (CheckMenuItem) item;
+                if (checkItem.isSelected()) {
+                    seleccionados.add(checkItem.getText());
+                }
+            }
+        }
+
+        if (seleccionados.isEmpty()) {
+            categoriaBottom.setText("");
+        } else {
+            categoriaBottom.setText(String.join(", ", seleccionados));
+        }
+    }
+
+    
+    private void setupCategoriaMenu() {
+    	for (Object item : categoriaBottom.getItems()) {
+    	    if (item instanceof CheckMenuItem) {
+    	        CheckMenuItem checkItem = (CheckMenuItem) item;
+
+                checkItem.selectedProperty().addListener((obs, oldVal, newVal) -> {
+                    updateCategoriaText();
+                });
+            }
+        }
+
+        updateCategoriaText();
     }
 
 }
+
