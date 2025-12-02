@@ -41,7 +41,7 @@ public class ControladorAñadirGasto {
         String cantidadStr = cantidadGasto.getText();
         LocalDate fecha = fechaGasto.getValue();
         //Comprobamos que se han rellenado todos los campos correctamente
-        if (nombre == null || nombre.isBlank()) {
+        if (nombre == null || nombre.isEmpty()) {
         	controladorVentanaPrincipal.mostrarEnTerminal("ERROR: añade nombre al gasto");
         	return;
         }
@@ -90,7 +90,7 @@ public class ControladorAñadirGasto {
         dialog.setHeaderText(null);
         dialog.setContentText("Nombre:");
         dialog.showAndWait().ifPresent(nombre -> {
-            if (!nombre.isBlank()) {
+            if (!nombre.isEmpty()) {
             	categoriasCreadas.getItems().add(nombre);
             	categoriasCreadas.getSelectionModel().select(nombre);
             	controladorVentanaPrincipal.mostrarEnTerminal("Categoría añadida: " + nombre);

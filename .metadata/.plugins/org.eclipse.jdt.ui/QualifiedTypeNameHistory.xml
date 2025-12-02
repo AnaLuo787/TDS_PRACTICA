@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="java.time.LocalDateTime"/>
+    <fullyQualifiedTypeName name="umu.tds.repositorios.RepositorioGasto"/>
+    <fullyQualifiedTypeName name="umu.tds.vista.ControladorAñadirGasto"/>
+    <fullyQualifiedTypeName name="umu.tds.vista.ControladorVentanaPrincipal"/>
+    <fullyQualifiedTypeName name="umu.tds.vista.ControladorModificarGasto"/>
+    <fullyQualifiedTypeName name="umu.tds.repository.impl.RepositorioGastoJSON"/>
+    <fullyQualifiedTypeName name="javafx.scene.control.DatePicker"/>
     <fullyQualifiedTypeName name="java.time.LocalDate"/>
     <fullyQualifiedTypeName name="umu.tds.modelo.Categoria"/>
-    <fullyQualifiedTypeName name="java.time.LocalDateTime"/>
 </qualifiedTypeNameHistroy>

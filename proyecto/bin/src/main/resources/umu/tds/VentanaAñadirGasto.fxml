@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="umu.tds.vista.ControladorAñadirGasto">
+    <VBox alignment="TOP_CENTER" prefHeight="307.0" prefWidth="503.0" spacing="20.0" style="-fx-background-color: lightblue;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+       <padding>
+          <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+       </padding>
+       <children>
+          <Label alignment="TOP_CENTER" text="Añadir Gasto">
+             <font>
+                <Font name="System Bold" size="18.0" />
+             </font>
+          </Label>
+
+          <HBox spacing="10.0">
+             <children>
+                <Label text="Gasto" />
+                <TextField fx:id="nombreGasto" HBox.hgrow="ALWAYS" />
+             </children>
+          </HBox>
+
+          <HBox spacing="10.0">
+             <children>
+                <Label text="Categoria" />
+                <VBox spacing="8.0" HBox.hgrow="ALWAYS">
+                   <children>
+                      <ComboBox fx:id="categoriasCreadas" HBox.hgrow="ALWAYS" />
+                      <Button fx:id="newCategoria" mnemonicParsing="false" onAction="#crearNuevaCategoria" text="+ Nueva" />
+                   </children>
+                </VBox>
+             </children>
+          </HBox>
+
+          <HBox spacing="10.0">
+             <children>
+                <Label text="Cantidad" />
+                <TextField fx:id="cantidadGasto" prefHeight="26.0" prefWidth="306.0" HBox.hgrow="ALWAYS" />
+             </children>
+          </HBox>
+
+          <HBox spacing="10.0">
+             <children>
+                <Label text="Fecha" />
+                <DatePicker fx:id="fechaGasto" HBox.hgrow="ALWAYS" />
+             </children>
+          </HBox>
+
+          <HBox prefHeight="40.0" prefWidth="470.0" spacing="20.0">
+             <children>
+                <Button fx:id="add" mnemonicParsing="false" onAction="#addGasto" prefHeight="70.0" prefWidth="200.0" style="-fx-background-color: gray; -fx-text-fill: white; -fx-font-weight: bold;" text="Añadir Gasto" HBox.hgrow="ALWAYS" />
+                <Button fx:id="cancel" mnemonicParsing="false" onAction="#cancelarAddGasto" prefHeight="45.0" prefWidth="79.0" style="-fx-background-color: lightgray; -fx-font-weight: bold;" text="Cancelar" HBox.hgrow="ALWAYS" />
+             </children>
+          </HBox>
+       </children>
+    </VBox>
+</AnchorPane>

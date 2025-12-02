@@ -1,0 +1,9 @@
+[ {
+  "nombre" : "pulsera",
+  "Nombre del Gasto" : "pulsera",
+  "Categoria" : {
+    "nombre" : "Joyeria"
+  },
+  "Cantidad" : 60.0,
+  "Fecha" : "01-12-2025"
+} ]

@@ -48,14 +48,21 @@ public class Gasto {
 	}
 	
 	public Categoria getCategoria() {
-		return categoria;
-	}
+        return this.categoria;
+    }
+	
+	public String getCategoriaNombre() {
+        if (this.categoria == null) {
+            return "Sin Categoría"; // String de manejo de nulo
+        }
+        return this.categoria.getNombre();
+    }
 	
 	public void setNombre(String nuevoNombre) {
 		this.nombreGasto = nuevoNombre;
 	}
 	
-	public void setFecha(LocalDate nuevaFecha) {
+	public void setFecha(LocalDate	  nuevaFecha) {
 		this.fecha = nuevaFecha;
 	}
 	

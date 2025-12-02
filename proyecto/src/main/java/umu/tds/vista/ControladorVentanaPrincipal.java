@@ -17,7 +17,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 
-public class ControladorVentanaPrincipal {
+public class ControladorVentanaPrincipal{
 	@FXML private Tab ventanaPrincipal; //pestaña inicial
 	@FXML private MenuItem salir;
 	@FXML private TabPane tabPane;	//en él se mostrarán las diferentes pestañas al pulsar los botones
@@ -65,10 +65,8 @@ public class ControladorVentanaPrincipal {
             if (controlador instanceof ControladorEliminarGasto) {
                 ((ControladorEliminarGasto) controlador).setControladorPrincipal(this);
             }
-            /*if (controlador instanceof ControladorModificarGasto) {
-                ((ControladorModificarGasto) controlador).setControladorPrincipal(
-            }
-            if (controlador instanceof ControladorFiltrarGastos) {
+
+            /*if (controlador instanceof ControladorFiltrarGastos) {
 		((ControladorFiltrarGastos) controlador).setControladorPrincipal(this);
 	    }
             if (controlador instanceof ControladorAlertas) {
@@ -94,7 +92,7 @@ public class ControladorVentanaPrincipal {
     
     @FXML
     void modifyGasto(ActionEvent event) {
-    	//abrirPestaña("Modificar Gasto", "/umu/tds/VentanaModificarGasto.fxml");
+    	abrirPestaña("Modificar Gasto", "/umu/tds/VentanaModificarGasto.fxml");
     }
 
     @FXML
