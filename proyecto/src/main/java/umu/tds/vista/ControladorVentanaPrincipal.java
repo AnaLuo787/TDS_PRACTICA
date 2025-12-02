@@ -104,7 +104,7 @@ public class ControladorVentanaPrincipal {
 
     @FXML
     void configurarAlertas(ActionEvent event) {
-    	//abrirPestaña("Configurar Alerta", "/umu/tds/VentanaAlertas.fxml");
+    	abrirPestaña("Configurar Alerta", "/umu/tds/VentanaAlertas.fxml");
     }
 
     @FXML
@@ -114,7 +114,7 @@ public class ControladorVentanaPrincipal {
 
     @FXML
     void filtro(ActionEvent event) {
-    	//abrirPestaña("Filtrar Gastos", "/umu/tds/VentanaFiltrarGastos.fxml");
+    	abrirPestaña("Filtrar Gastos", "/umu/tds/VentanaFiltrarGastos.fxml");
     }
     
     @FXML
