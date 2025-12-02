@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 */
 
 public class Gasto {
-	@JsonProperty("Nombre del Gasto")
+	//@JsonProperty("NombreGasto")
 	private String nombreGasto;
 	@JsonProperty("Categoria")
 	private Categoria categoria;
@@ -48,21 +48,14 @@ public class Gasto {
 	}
 	
 	public Categoria getCategoria() {
-        return this.categoria;
-    }
-	
-	public String getCategoriaNombre() {
-        if (this.categoria == null) {
-            return "Sin Categoría"; // String de manejo de nulo
-        }
-        return this.categoria.getNombre();
-    }
+		return categoria;
+	}
 	
 	public void setNombre(String nuevoNombre) {
 		this.nombreGasto = nuevoNombre;
 	}
 	
-	public void setFecha(LocalDate	  nuevaFecha) {
+	public void setFecha(LocalDate nuevaFecha) {
 		this.fecha = nuevaFecha;
 	}
 	

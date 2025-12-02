@@ -1,89 +1,15 @@
 [ {
-  "nombre" : "pulsera",
-  "Nombre del Gasto" : "pulsera",
+  "nombre" : "pulsera Pandora",
   "Categoria" : {
-    "nombre" : "Joyeria"
+    "nombre" : "Caprichos"
   },
   "Cantidad" : 60.0,
-  "Fecha" : "01-12-2025"
+  "Fecha" : "14-02-2024"
 }, {
-  "nombre" : "hol12a",
-  "Nombre del Gasto" : "hol12a",
+  "nombre" : "libreta",
   "Categoria" : {
-    "nombre" : "Transporte"
+    "nombre" : "Utiles"
   },
-  "Cantidad" : 32.0,
-  "Fecha" : "02-12-2025"
-}, {
-  "nombre" : "hol12a",
-  "Nombre del Gasto" : "hol12a",
-  "Categoria" : {
-    "nombre" : "Transporte"
-  },
-  "Cantidad" : 32.0,
-  "Fecha" : "02-12-2025"
-}, {
-  "nombre" : "8",
-  "Nombre del Gasto" : "8",
-  "Categoria" : {
-    "nombre" : "Transporte"
-  },
-  "Cantidad" : 32.0,
-  "Fecha" : "02-12-2025"
-}, {
-  "nombre" : "8",
-  "Nombre del Gasto" : "8",
-  "Categoria" : {
-    "nombre" : "Transporte"
-  },
-  "Cantidad" : 32.0,
-  "Fecha" : "02-12-2025"
-}, {
-  "nombre" : "8",
-  "Nombre del Gasto" : "8",
-  "Categoria" : {
-    "nombre" : "Transporte"
-  },
-  "Cantidad" : 32.0,
-  "Fecha" : "02-12-2025"
-}, {
-  "nombre" : "8",
-  "Nombre del Gasto" : "8",
-  "Categoria" : {
-    "nombre" : "Transporte"
-  },
-  "Cantidad" : 32.0,
-  "Fecha" : "02-12-2025"
-}, {
-  "nombre" : "8",
-  "Nombre del Gasto" : "8",
-  "Categoria" : {
-    "nombre" : "Transporte"
-  },
-  "Cantidad" : 32.0,
-  "Fecha" : "02-12-2025"
-}, {
-  "nombre" : "8",
-  "Nombre del Gasto" : "8",
-  "Categoria" : {
-    "nombre" : "Transporte"
-  },
-  "Cantidad" : 32.0,
-  "Fecha" : "02-12-2025"
-}, {
-  "nombre" : "pulsera",
-  "Nombre del Gasto" : "pulsera",
-  "Categoria" : {
-    "nombre" : "Joyeria"
-  },
-  "Cantidad" : 60.0,
-  "Fecha" : "01-12-2025"
-}, {
-  "nombre" : "8",
-  "Nombre del Gasto" : "8",
-  "Categoria" : {
-    "nombre" : "Transporte"
-  },
-  "Cantidad" : 32.0,
-  "Fecha" : "02-12-2025"
+  "Cantidad" : 3.5,
+  "Fecha" : "17-11-2025"
 } ]

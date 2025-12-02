@@ -4,8 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import umu.tds.repository.RepositorioGasto;
 import umu.tds.modelo.Gasto;
+import umu.tds.repository.Repositorio;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,13 +16,13 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class RepositorioGastoJSON implements RepositorioGasto {
+public class RepositorioGastoJSON implements Repositorio<Gasto> {
     private static RepositorioGastoJSON instancia;
 	private final File fichero = new File("gastos.json");
     private final ObjectMapper mapper;
     private final ObservableList<Gasto> gastos = FXCollections.observableArrayList();
     
-    public RepositorioGastoJSON() {
+    private RepositorioGastoJSON() {
         this.mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule()); // soporte para LocalDate
         mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
@@ -66,6 +66,7 @@ public class RepositorioGastoJSON implements RepositorioGasto {
     private void cargar() {
         if (fichero.exists()) {
             try {
+            	//JSON no debe deserializar directamente un ObservableList
                 List<Gasto> lista = mapper.readValue(fichero, new TypeReference<List<Gasto>>() {});
                 gastos.setAll(lista); 	//cargar en ObservableList
             } catch (IOException e) {
@@ -75,6 +76,4 @@ public class RepositorioGastoJSON implements RepositorioGasto {
             }
         }
     }
-
-
 }

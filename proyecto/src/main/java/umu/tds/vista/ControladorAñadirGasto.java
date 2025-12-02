@@ -2,7 +2,8 @@ package umu.tds.vista;
 
 import umu.tds.modelo.Categoria;
 import umu.tds.modelo.Gasto;
-import umu.tds.repository.RepositorioGasto;
+import umu.tds.repository.Repositorio;
+import umu.tds.repository.impl.RepositorioCategoriaJSON;
 import umu.tds.repository.impl.RepositorioGastoJSON;
 
 import java.net.URL;
@@ -32,7 +33,8 @@ public class ControladorAñadirGasto {
         this.controladorVentanaPrincipal = controlador;
     }
     
-    private final RepositorioGasto repositorio = new RepositorioGastoJSON().getInstance();
+    private final Repositorio<Gasto> repositorioGastos = RepositorioGastoJSON.getInstance();
+    private final Repositorio<Categoria> repositorioCategorias = RepositorioCategoriaJSON.getInstance();
 
     @FXML
     void addGasto(ActionEvent event) {
@@ -41,7 +43,7 @@ public class ControladorAñadirGasto {
         String cantidadStr = cantidadGasto.getText();
         LocalDate fecha = fechaGasto.getValue();
         //Comprobamos que se han rellenado todos los campos correctamente
-        if (nombre == null || nombre.isEmpty()) {
+        if (nombre == null || nombre.isBlank()) {
         	controladorVentanaPrincipal.mostrarEnTerminal("ERROR: añade nombre al gasto");
         	return;
         }
@@ -66,7 +68,7 @@ public class ControladorAñadirGasto {
         }
         Categoria categoria = new Categoria(categoriaStr);
         Gasto nuevo = new Gasto(nombre, categoria, cantidad, fecha);	//persistencia
-        repositorio.save(nuevo);
+        repositorioGastos.save(nuevo);
         controladorVentanaPrincipal.mostrarEnTerminal("Gasto añadido: " + nombre + " en categoría " + categoria.getNombre() + " por " + cantidad + " € el " + fecha);
         limpiarFormulario();
     }
@@ -85,14 +87,22 @@ public class ControladorAñadirGasto {
     
     @FXML
     void crearNuevaCategoria() {
-    	TextInputDialog dialog = new TextInputDialog();
+    	TextInputDialog dialog = new TextInputDialog();	//mini ventanita
         dialog.setTitle("Nueva categoría");
         dialog.setHeaderText(null);
         dialog.setContentText("Nombre:");
         dialog.showAndWait().ifPresent(nombre -> {
-            if (!nombre.isEmpty()) {
-            	categoriasCreadas.getItems().add(nombre);
-            	categoriasCreadas.getSelectionModel().select(nombre);
+            if (!nombre.isBlank()) {
+            	//Evitamos distinguir entre mayúsculas, minúsculas y tildes
+            	String nombreNormalizado = nombre.trim();
+            	if(categoriasCreadas.getItems().contains(nombreNormalizado)) {
+            		controladorVentanaPrincipal.mostrarEnTerminal("ERROR: la categoria " + nombre + " ya existe");
+            		return;
+            	}
+            	Categoria nueva = new Categoria(nombreNormalizado);
+            	repositorioCategorias.save(nueva); // persistencia
+            	categoriasCreadas.getItems().add(nombreNormalizado);
+            	categoriasCreadas.getSelectionModel().select(nombreNormalizado);
             	controladorVentanaPrincipal.mostrarEnTerminal("Categoría añadida: " + nombre);
             } else {
             	controladorVentanaPrincipal.mostrarEnTerminal("ERROR: La categoría no puede estar vacía");
@@ -110,8 +120,11 @@ public class ControladorAñadirGasto {
         assert newCategoria != null : "fx:id=\"newCategoria\" was not injected: check your FXML file 'VentanaAñadirGasto.fxml'.";
         assert nombreGasto != null : "fx:id=\"nombreGasto\" was not injected: check your FXML file 'VentanaAñadirGasto.fxml'.";
 
-        //Categorías predefinidas
+        //Categorías predefinidas + las creadas por el usuario
         categoriasCreadas.getItems().addAll("Alimentación", "Transporte", "Entretenimiento");
+        for (Categoria c : repositorioCategorias.findAll()) {
+            categoriasCreadas.getItems().add(c.getNombre());
+        }
         //Determinamos la fecha a la actual, por si el gasto se ha producido hoy
         fechaGasto.setValue(LocalDate.now());
     }

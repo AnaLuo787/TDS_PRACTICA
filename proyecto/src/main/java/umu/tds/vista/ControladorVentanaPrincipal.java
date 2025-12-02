@@ -16,8 +16,9 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
-public class ControladorVentanaPrincipal{
+public class ControladorVentanaPrincipal {
 	@FXML private Tab ventanaPrincipal; //pestaña inicial
 	@FXML private MenuItem salir;
 	@FXML private TabPane tabPane;	//en él se mostrarán las diferentes pestañas al pulsar los botones
@@ -62,16 +63,22 @@ public class ControladorVentanaPrincipal{
             if (controlador instanceof ControladorAñadirGasto) {
                 ((ControladorAñadirGasto) controlador).setControladorPrincipal(this);
             }
+            
             if (controlador instanceof ControladorEliminarGasto) {
                 ((ControladorEliminarGasto) controlador).setControladorPrincipal(this);
             }
-
-            /*if (controlador instanceof ControladorFiltrarGastos) {
-		((ControladorFiltrarGastos) controlador).setControladorPrincipal(this);
-	    }
+            
+            /*if (controlador instanceof ControladorModificarGasto) {
+                ((ControladorModificarGasto) controlador).setControladorPrincipal(
+            }*/
+            
+            if (controlador instanceof ControladorFiltrarGastos) {
+            	((ControladorFiltrarGastos) controlador).setControladorPrincipal(this);
+            }
+            
             if (controlador instanceof ControladorAlertas) {
             	((ControladorAlertas) controlador).setControladorPrincipal(this);
-            }*/
+            }
             
             Tab nuevaTab = new Tab(titulo);
             nuevaTab.setClosable(true);	
@@ -92,7 +99,7 @@ public class ControladorVentanaPrincipal{
     
     @FXML
     void modifyGasto(ActionEvent event) {
-    	abrirPestaña("Modificar Gasto", "/umu/tds/VentanaModificarGasto.fxml");
+    	//abrirPestaña("Modificar Gasto", "/umu/tds/VentanaModificarGasto.fxml");
     }
 
     @FXML
@@ -102,7 +109,7 @@ public class ControladorVentanaPrincipal{
 
     @FXML
     void configurarAlertas(ActionEvent event) {
-    	//abrirPestaña("Configurar Alerta", "/umu/tds/VentanaAlertas.fxml");
+    	abrirPestaña("Configurar Alerta", "/umu/tds/VentanaAlertas.fxml");
     }
 
     @FXML
@@ -112,7 +119,7 @@ public class ControladorVentanaPrincipal{
 
     @FXML
     void filtro(ActionEvent event) {
-    	//abrirPestaña("Filtrar Gastos", "/umu/tds/VentanaFiltrarGastos.fxml");
+    	abrirPestaña("Filtrar Gastos", "/umu/tds/VentanaFiltrarGastos.fxml");
     }
     
     @FXML
