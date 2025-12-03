@@ -1,9 +1,9 @@
 package umu.tds.repository;
 
-import java.util.List;
+import javafx.collections.ObservableList;
 
 public interface Repositorio<T> {
 	void save(T instancia);          // Crear o actualizar
     void delete(T instancia);        // Eliminar
-    List<T> findAll();           // Recuperar todos
+    ObservableList<T> findAll();     // Recuperar todos
 }

@@ -1,6 +1,5 @@
 package umu.tds.vista;
 
-///AÑADIR MODIFICACIONES DEL GITHUB
 ///La terminal irá en una clase main aparte, con el mismo controlador y modelo pero diferente vista
 
 import java.io.IOException;
@@ -16,7 +15,8 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
+//import javafx.scene.text.Text;
+import umu.tds.controlador.Controlador;
 
 public class ControladorVentanaPrincipal {
 	@FXML private Tab ventanaPrincipal; //pestaña inicial
@@ -33,7 +33,12 @@ public class ControladorVentanaPrincipal {
     @FXML private VBox notif;
     @FXML private Button remove;
     @FXML private TextArea terminal;
+    private Controlador controladorApp;
 
+    public void setControladorApp(Controlador controlador) {
+        this.controladorApp = controlador;
+    }
+    
     public void mostrarEnTerminal(String texto) {
         terminal.appendText(texto + "\n");
     }
@@ -62,25 +67,33 @@ public class ControladorVentanaPrincipal {
             Object controlador = loader.getController();
             if (controlador instanceof ControladorAñadirGasto) {
                 ((ControladorAñadirGasto) controlador).setControladorPrincipal(this);
+                ((ControladorAñadirGasto) controlador).setControladorApp(controladorApp);
+                ((ControladorAñadirGasto) controlador).cargarCategorias();
             }
             
             if (controlador instanceof ControladorEliminarGasto) {
                 ((ControladorEliminarGasto) controlador).setControladorPrincipal(this);
+                ((ControladorEliminarGasto) controlador).setControladorApp(controladorApp);
+                ((ControladorEliminarGasto) controlador).cargarGastos();
             }
             
             /*if (controlador instanceof ControladorModificarGasto) {
-                ((ControladorModificarGasto) controlador).setControladorPrincipal(
+                ((ControladorModificarGasto) controlador).setControladorPrincipal(this);
+                ((ControladorModificarGasto) controlador).setControladorApp(controladorApp);
+                ((ControladorModificarGasto) controlador).cargarGastos();
             }*/
             
             if (controlador instanceof ControladorFiltrarGastos) {
             	((ControladorFiltrarGastos) controlador).setControladorPrincipal(this);
+            	((ControladorFiltrarGastos) controlador).setControladorApp(controladorApp);
+            	((ControladorFiltrarGastos) controlador).cargarCategorias();
             }
             
-
             if (controlador instanceof ControladorAlertas) {
             	((ControladorAlertas) controlador).setControladorPrincipal(this);
+            	((ControladorAlertas) controlador).setControladorApp(controladorApp);
+            	((ControladorAlertas) controlador).cargarCategorias();
             }
-
             
             Tab nuevaTab = new Tab(titulo);
             nuevaTab.setClosable(true);	

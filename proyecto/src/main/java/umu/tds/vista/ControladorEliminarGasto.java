@@ -1,8 +1,7 @@
 package umu.tds.vista;
 
+import umu.tds.controlador.Controlador;
 import umu.tds.modelo.Gasto;
-import umu.tds.repository.Repositorio;
-import umu.tds.repository.impl.RepositorioGastoJSON;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -23,29 +22,29 @@ public class ControladorEliminarGasto {
     @FXML private Button eliminarGasto;
     @FXML private ListView<Gasto> listaGastos;
     private ControladorVentanaPrincipal controladorVentanaPrincipal;
+    private Controlador controladorApp;
 
     public void setControladorPrincipal(ControladorVentanaPrincipal controlador) {
         this.controladorVentanaPrincipal = controlador;
     }
     
-    private final Repositorio<Gasto> repositorioGastos = RepositorioGastoJSON.getInstance();
-    
+    public void setControladorApp(Controlador controlador) {
+        this.controladorApp = controlador;
+    }
+        
     @FXML
     void eliminarGasto(ActionEvent event) {
         Gasto gastoSeleccionado = listaGastos.getSelectionModel().getSelectedItem();
         if (gastoSeleccionado == null) {
-        	repositorioGastos.delete(gastoSeleccionado);		//persistencia
         	controladorVentanaPrincipal.mostrarEnTerminal("ERROR: Selecciona un gasto para eliminar.");
             return;
         }
-
-        Alert confirmacion = new Alert(AlertType.CONFIRMATION, "¿Está segura de eliminar \"" + gastoSeleccionado + "\"?", ButtonType.YES, ButtonType.NO);
+        Alert confirmacion = new Alert(AlertType.CONFIRMATION, "¿Estás seguro de eliminar \"" + gastoSeleccionado + "\"?", ButtonType.YES, ButtonType.NO);
         confirmacion.setTitle("Confirmar eliminación");
         confirmacion.setHeaderText(null);
-
         confirmacion.showAndWait().ifPresent(respuesta -> {
             if (respuesta == ButtonType.YES) {
-            	repositorioGastos.delete(gastoSeleccionado);
+            	controladorApp.removeGasto(gastoSeleccionado);
                 listaGastos.getItems().remove(gastoSeleccionado);
                 controladorVentanaPrincipal.mostrarEnTerminal("Gasto eliminado: " + gastoSeleccionado);
             } else {
@@ -58,6 +57,12 @@ public class ControladorEliminarGasto {
     void cancelarOperacion(ActionEvent event) {
     	listaGastos.getSelectionModel().clearSelection();
     }
+    
+    public void cargarGastos() {
+    	if(controladorApp != null) {
+    		listaGastos.setItems((ObservableList<Gasto>) controladorApp.getGastos());
+    	}
+    }
 
     @FXML
     void initialize() {
@@ -65,6 +70,5 @@ public class ControladorEliminarGasto {
         assert eliminarGasto != null : "fx:id=\"eliminarGasto\" was not injected: check your FXML file 'VentanaEliminarGasto.fxml'.";
         assert listaGastos != null : "fx:id=\"listaGastos\" was not injected: check your FXML file 'VentanaEliminarGasto.fxml'.";
         
-        listaGastos.setItems((ObservableList<Gasto>) repositorioGastos.findAll()); 	//se vincula directamente
     }
 }

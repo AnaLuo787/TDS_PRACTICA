@@ -1,10 +1,7 @@
 package umu.tds.vista;
 
+import umu.tds.controlador.Controlador;
 import umu.tds.modelo.Categoria;
-import umu.tds.modelo.Gasto;
-import umu.tds.repository.Repositorio;
-import umu.tds.repository.impl.RepositorioCategoriaJSON;
-import umu.tds.repository.impl.RepositorioGastoJSON;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -17,6 +14,10 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 
+///En los controladores de Presentación habrá que inyectar el controlador de la aplicación,
+/// el cual tendrá los repositorios y hará todas las funciones correspondientes de la
+/// funcionalidad vista-modelo
+
 public class ControladorAñadirGasto {
     @FXML private ResourceBundle resources;
     @FXML private URL location;
@@ -28,13 +29,15 @@ public class ControladorAñadirGasto {
     @FXML private Button newCategoria;
     @FXML private TextField nombreGasto;
     private ControladorVentanaPrincipal controladorVentanaPrincipal;
+    private Controlador controladorApp;
     
     public void setControladorPrincipal(ControladorVentanaPrincipal controlador) {
         this.controladorVentanaPrincipal = controlador;
     }
     
-    private final Repositorio<Gasto> repositorioGastos = RepositorioGastoJSON.getInstance();
-    private final Repositorio<Categoria> repositorioCategorias = RepositorioCategoriaJSON.getInstance();
+    public void setControladorApp(Controlador controlador) {
+        this.controladorApp = controlador;
+    }
 
     @FXML
     void addGasto(ActionEvent event) {
@@ -66,10 +69,9 @@ public class ControladorAñadirGasto {
         	controladorVentanaPrincipal.mostrarEnTerminal("ERROR: la cantidad es inválida (ej: 23.45)");
             return;
         }
-        Categoria categoria = new Categoria(categoriaStr);
-        Gasto nuevo = new Gasto(nombre, categoria, cantidad, fecha);	//persistencia
-        repositorioGastos.save(nuevo);
-        controladorVentanaPrincipal.mostrarEnTerminal("Gasto añadido: " + nombre + " en categoría " + categoria.getNombre() + " por " + cantidad + " € el " + fecha);
+        //Delegamos la funcionalidad en el controlador de la aplicación
+        controladorApp.addGasto(nombre, categoriaStr, cantidad, fecha);
+        controladorVentanaPrincipal.mostrarEnTerminal("Gasto añadido: " + nombre + " en categoría " + categoriaStr + " por " + cantidad + " € el " + fecha);
         limpiarFormulario();
     }
 
@@ -94,20 +96,30 @@ public class ControladorAñadirGasto {
         dialog.showAndWait().ifPresent(nombre -> {
             if (!nombre.isBlank()) {
             	//Evitamos distinguir entre mayúsculas, minúsculas y tildes
-            	String nombreNormalizado = nombre.trim();
-            	if(categoriasCreadas.getItems().contains(nombreNormalizado)) {
+            	String categoriaStr = nombre.trim();
+            	if(categoriasCreadas.getItems().contains(categoriaStr)) {
             		controladorVentanaPrincipal.mostrarEnTerminal("ERROR: la categoria " + nombre + " ya existe");
             		return;
             	}
-            	Categoria nueva = new Categoria(nombreNormalizado);
-            	repositorioCategorias.save(nueva); // persistencia
-            	categoriasCreadas.getItems().add(nombreNormalizado);
-            	categoriasCreadas.getSelectionModel().select(nombreNormalizado);
+            	Categoria nueva = controladorApp.addCategoria(categoriaStr);
+            	categoriasCreadas.getItems().add(nueva.getNombre());
+            	categoriasCreadas.getSelectionModel().select(nueva.getNombre());
             	controladorVentanaPrincipal.mostrarEnTerminal("Categoría añadida: " + nombre);
             } else {
             	controladorVentanaPrincipal.mostrarEnTerminal("ERROR: La categoría no puede estar vacía");
             }
         });
+    }
+    
+    public void cargarCategorias() {
+    	categoriasCreadas.getItems().clear();
+    	//Categorías predefinidas + las creadas por el usuario
+        categoriasCreadas.getItems().addAll("Alimentación", "Transporte", "Entretenimiento");
+        if(controladorApp != null) {
+	        for(Categoria c : controladorApp.getCategorias()) {
+	            categoriasCreadas.getItems().add(c.getNombre());
+	        }
+        }
     }
 
     @FXML
@@ -120,11 +132,6 @@ public class ControladorAñadirGasto {
         assert newCategoria != null : "fx:id=\"newCategoria\" was not injected: check your FXML file 'VentanaAñadirGasto.fxml'.";
         assert nombreGasto != null : "fx:id=\"nombreGasto\" was not injected: check your FXML file 'VentanaAñadirGasto.fxml'.";
 
-        //Categorías predefinidas + las creadas por el usuario
-        categoriasCreadas.getItems().addAll("Alimentación", "Transporte", "Entretenimiento");
-        for (Categoria c : repositorioCategorias.findAll()) {
-            categoriasCreadas.getItems().add(c.getNombre());
-        }
         //Determinamos la fecha a la actual, por si el gasto se ha producido hoy
         fechaGasto.setValue(LocalDate.now());
     }

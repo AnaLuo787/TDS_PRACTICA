@@ -1,10 +1,7 @@
 package umu.tds.vista;
 
+import umu.tds.controlador.Controlador;
 import umu.tds.modelo.Categoria;
-import umu.tds.modelo.Gasto;
-import umu.tds.repository.Repositorio;
-import umu.tds.repository.impl.RepositorioCategoriaJSON;
-import umu.tds.repository.impl.RepositorioGastoJSON;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -33,17 +30,38 @@ public class ControladorFiltrarGastos {
     @FXML private DatePicker desdeDatePicker;
     @FXML private DatePicker hastaDatePicker;
     private ControladorVentanaPrincipal controladorVentanaPrincipal;
+    private Controlador controladorApp;
 
     public void setControladorPrincipal(ControladorVentanaPrincipal controlador) {
         this.controladorVentanaPrincipal = controlador;
     }
     
-    private final Repositorio<Categoria> repositorioCategorias = RepositorioCategoriaJSON.getInstance();
-    
+    public void setControladorApp(Controlador controlador) {
+        this.controladorApp = controlador;
+    }
+        
     @FXML
     private void aplicarFiltradoDeGastos(ActionEvent event) {
-    	
     }
+    
+    public void cargarCategorias() {
+        categoriaVBox.getChildren().clear();
+        //Si se activa la opción de Categoría, se mostrarán las categorías registradas en el sistema (predefinidas + creadas)
+        String[] predefinidas = {"Alimentación", "Transporte", "Entretenimiento"};
+        for (String nombre : predefinidas) {
+            CheckBox check = new CheckBox(nombre);
+            check.selectedProperty().addListener((obs, oldVal, newVal) -> filtrarGastos.setSelected(false));
+            categoriaVBox.getChildren().add(check);
+        }
+        if(controladorApp != null) {
+	        for (Categoria categoria : controladorApp.getCategorias()) {
+	            CheckBox check = new CheckBox(categoria.getNombre());
+	            check.selectedProperty().addListener((obs, oldVal, newVal) -> filtrarGastos.setSelected(false));
+	            categoriaVBox.getChildren().add(check);
+	        }
+        }
+    }
+
     
     @FXML
     void initialize() {
@@ -71,22 +89,9 @@ public class ControladorFiltrarGastos {
 			fechaGridPane.setManaged(newVal);
 		});
         
-        //El botón debe reflejar visualmente que hay un filtro aplicado y cuál
+        //El botón debe reflejar visualmente que hay un filtro aplicado o no y cuál
         categoriaCheckBox.selectedProperty().addListener((o, ov, nv) -> filtrarGastos.setSelected(false));
         fechaCheckBox.selectedProperty().addListener((o, ov, nv) -> filtrarGastos.setSelected(false));
-        
-        //Si se activa la opción de Categoría, se mostrarán las categorías registradas en el sistema (predefinidas + creadas)
-        String[] predefinidas = {"Alimentación", "Transporte", "Entretenimiento"};
-        for (String nombre : predefinidas) {
-            CheckBox check = new CheckBox(nombre);
-            check.selectedProperty().addListener((obs, oldVal, newVal) -> filtrarGastos.setSelected(false));
-            categoriaVBox.getChildren().add(check);
-        }
-        for (Categoria categoria : repositorioCategorias.findAll()) {
-            CheckBox check = new CheckBox(categoria.getNombre());
-            check.selectedProperty().addListener((obs, oldVal, newVal) -> filtrarGastos.setSelected(false));
-            categoriaVBox.getChildren().add(check);
-        }
     }
 }
 

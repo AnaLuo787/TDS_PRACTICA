@@ -12,4 +12,18 @@
   },
   "Cantidad" : 3.5,
   "Fecha" : "17-11-2025"
+}, {
+  "nombre" : "comida",
+  "Categoria" : {
+    "nombre" : "Hosteleria"
+  },
+  "Cantidad" : 7.99,
+  "Fecha" : "03-12-2025"
+}, {
+  "nombre" : "perfume Valentino",
+  "Categoria" : {
+    "nombre" : "Caprichos"
+  },
+  "Cantidad" : 50.0,
+  "Fecha" : "30-11-2024"
 } ]

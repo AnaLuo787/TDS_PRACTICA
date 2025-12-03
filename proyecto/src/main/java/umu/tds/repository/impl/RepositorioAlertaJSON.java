@@ -10,50 +10,49 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import umu.tds.modelo.Categoria;
+import umu.tds.modelo.Alerta;
 import umu.tds.repository.Repositorio;
 
-public class RepositorioCategoriaJSON implements Repositorio<Categoria> {
-	private static RepositorioCategoriaJSON instancia;
-	private final File fichero = new File("categorias.json");
+public class RepositorioAlertaJSON implements Repositorio<Alerta> {
+	private static RepositorioAlertaJSON instancia;
+	private final File fichero = new File("alertas.json");
     private final ObjectMapper mapper;
-    private final ObservableList<Categoria> categorias = FXCollections.observableArrayList();
+    private final ObservableList<Alerta> alertas = FXCollections.observableArrayList();
     
-    public RepositorioCategoriaJSON() {
+    public RepositorioAlertaJSON() {
         this.mapper = new ObjectMapper();
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         cargar();
     }
     
     /// Singleton
-    public static RepositorioCategoriaJSON getInstance() {
+    public static RepositorioAlertaJSON getInstance() {
         if (instancia == null) {
-            instancia = new RepositorioCategoriaJSON();
+            instancia = new RepositorioAlertaJSON();
         }
         return instancia;
     }
     
     @Override
-    public void save(Categoria categoria) {
-        categorias.add(categoria);
+    public void save(Alerta alerta) {
+        alertas.add(alerta);
         guardar();
     }
 
-    // No existe la opción de borrar categorias
     @Override
-    public void delete(Categoria categoria) {
-        categorias.remove(categoria);
+    public void delete(Alerta alerta) {
+    	alertas.remove(alerta);
         guardar();
     }
     
     @Override
-    public ObservableList<Categoria> findAll() {
-        return categorias;
+    public ObservableList<Alerta> findAll() {
+        return alertas;
     }
     
     private void guardar() {
         try {
-            mapper.writerWithDefaultPrettyPrinter().writeValue(fichero, categorias);
+            mapper.writerWithDefaultPrettyPrinter().writeValue(fichero, alertas);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -62,11 +61,11 @@ public class RepositorioCategoriaJSON implements Repositorio<Categoria> {
     private void cargar() {
         if (fichero.exists()) {
             try {
-                List<Categoria> lista = mapper.readValue(fichero, new TypeReference<List<Categoria>>() {});
-                categorias.setAll(lista);
+                List<Alerta> lista = mapper.readValue(fichero, new TypeReference<List<Alerta>>() {});
+                alertas.setAll(lista);
             } catch (IOException e) {
-            	categorias.clear();
-            	guardar();
+                alertas.clear();
+                guardar();
                 e.printStackTrace();
             }
         }
