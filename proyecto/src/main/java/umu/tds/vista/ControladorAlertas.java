@@ -1,5 +1,13 @@
 package umu.tds.vista;
 
+
+import umu.tds.modelo.Categoria;
+import umu.tds.modelo.Gasto;
+import umu.tds.repository.Repositorio;
+import umu.tds.repository.impl.RepositorioCategoriaJSON;
+import umu.tds.repository.impl.RepositorioGastoJSON;
+
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,48 +23,27 @@ import javafx.scene.control.TextField;
 
 public class ControladorAlertas {
 
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
-
-    @FXML
-    private MenuButton categoriaBottom;
-
-
-    @FXML
-    private MenuButton frecuenciaBotton;
-
-    @FXML
-    private CheckMenuItem mensual;
-
-    @FXML
-    private CheckMenuItem semanal;
-
-    @FXML
-    private CheckMenuItem anual;
+    @FXML private ResourceBundle resources;
+    @FXML private URL location;
+    @FXML private MenuButton categoriaBottom;
+    @FXML private MenuButton frecuenciaBotton;
+    @FXML private CheckMenuItem mensual;
+    @FXML private CheckMenuItem semanal;
+    @FXML private CheckMenuItem anual;
+    @FXML private TextField limiteTextField;
+    @FXML private Button añadirButton;
+    @FXML private Button cancelarButton;
+    @FXML private ListView<CheckBox> reglasListView;
+    @FXML private Button borrarButton;
+    @FXML private Button seleccionarButton;
+    @FXML private CheckBox seleccionarTodoCheckBox;
+    private ControladorVentanaPrincipal controladorVentanaPrincipal;
     
-    @FXML
-    private TextField limiteTextField;
+    public void setControladorPrincipal(ControladorVentanaPrincipal controlador) {
+        this.controladorVentanaPrincipal = controlador;
+    }
     
-    @FXML
-    private Button añadirButton;
-    
-    @FXML
-    private Button cancelarButton;
-    
-    @FXML
-    private ListView<CheckBox> reglasListView;
-    
-    @FXML
-    private Button borrarButton;
-    
-    @FXML
-    private Button seleccionarButton;
-    
-    @FXML
-    private CheckBox seleccionarTodoCheckBox;
+    private final Repositorio<Categoria> repositorioCategorias = RepositorioCategoriaJSON.getInstance();
 
     @FXML
     void initialize() {
@@ -102,14 +89,10 @@ public class ControladorAlertas {
                 regla.setSelected(newVal);
             }
         });
-
-        
     }
     
     private void updateCategoriaText() {
-
         List<String> seleccionados = new ArrayList<>();
-
         for (Object item : categoriaBottom.getItems()) {
             if (item instanceof CheckMenuItem) {
                 CheckMenuItem checkItem = (CheckMenuItem) item;
@@ -127,16 +110,29 @@ public class ControladorAlertas {
     }
 
     private void setupCategoriaMenu() {
-    	for (Object item : categoriaBottom.getItems()) {
-    	    if (item instanceof CheckMenuItem) {
-    	        CheckMenuItem checkItem = (CheckMenuItem) item;
+    	
+        //Si se activa la opción de Categoría, se mostrarán las categorías registradas en el sistema (predefinidas + creadas)
+        String[] predefinidas = {"Alimentación", "Transporte", "Entretenimiento"};
+        for (String nombre : predefinidas) {
+            CheckMenuItem checkItem = new CheckMenuItem(nombre);
+  
 
-                checkItem.selectedProperty().addListener((obs, oldVal, newVal) -> {
-                    updateCategoriaText();
-                });
-            }
+            checkItem.selectedProperty().addListener((obs, oldVal, newVal) -> {
+                updateCategoriaText();
+            });
+            categoriaBottom.getItems().add(checkItem);
+    	    
         }
+        for (Categoria categoria : repositorioCategorias.findAll()) {
+        	CheckMenuItem checkItem = new CheckMenuItem(categoria.getNombre());
+    	    
 
+            checkItem.selectedProperty().addListener((obs, oldVal, newVal) -> {
+                updateCategoriaText();
+            });
+            categoriaBottom.getItems().add(checkItem);
+    	    
+        }
         updateCategoriaText();
 
     }
@@ -145,7 +141,7 @@ public class ControladorAlertas {
     // Añadir regla a la lista
     @FXML
     private void onAñadirRegla() {
-        String regla = frecuenciaBotton.getText() + ", " + categoriaBottom.getText() + ", " + limiteTextField.getText() + "€";
+        String regla = frecuenciaBotton.getText() + ": " + categoriaBottom.getText() + ": " + limiteTextField.getText() + "€";
         if (!frecuenciaBotton.getText().isEmpty() && !categoriaBottom.getText().isEmpty() && !limiteTextField.getText().isEmpty()) {
 			reglasListView.getItems().add(new CheckBox(regla));
 	        onCancelarRegla(); // Limpiar campos después de añadir
@@ -175,9 +171,5 @@ public class ControladorAlertas {
     private void onBorrarReglas() {
     			reglasListView.getItems().removeIf(CheckBox::isSelected);
     }
-    
-    
-
-
 }
 

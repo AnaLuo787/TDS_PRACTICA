@@ -76,11 +76,11 @@ public class ControladorVentanaPrincipal {
             	((ControladorFiltrarGastos) controlador).setControladorPrincipal(this);
             }
             
-            /*
+
             if (controlador instanceof ControladorAlertas) {
             	((ControladorAlertas) controlador).setControladorPrincipal(this);
             }
-            */
+
             
             Tab nuevaTab = new Tab(titulo);
             nuevaTab.setClosable(true);	

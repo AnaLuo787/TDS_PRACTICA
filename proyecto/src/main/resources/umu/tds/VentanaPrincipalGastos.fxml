@@ -49,12 +49,12 @@
    <left>
       <VBox fx:id="botones" alignment="TOP_CENTER" prefHeight="308.0" prefWidth="143.0" spacing="20.0" style="-fx-background-color: lightgray;" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="add" mnemonicParsing="false" onAction="#addGasto" text="Añadir Gasto" />
-            <Button fx:id="remove" mnemonicParsing="false" onAction="#removeGasto" text="Eliminar Gasto" />
-            <Button fx:id="modify" mnemonicParsing="false" onAction="#modifyGasto" text="Modificar Gasto" />
-            <Button fx:id="filtro" mnemonicParsing="false" onAction="#filtro" text="Filtrado de Gastos" />
-            <Button fx:id="alert" mnemonicParsing="false" onAction="#configurarAlertas" text="Configurar Alertas" />
-            <Button fx:id="account" mnemonicParsing="false" onAction="#crearCuentaCompartida" text="Cuenta Compartida" />
+            <Button fx:id="add" prefWidth="Infinity" mnemonicParsing="false" onAction="#addGasto" text="Añadir Gasto" />
+            <Button fx:id="remove" prefWidth="Infinity" mnemonicParsing="false" onAction="#removeGasto" text="Eliminar Gasto" />
+            <Button fx:id="modify" prefWidth="Infinity" mnemonicParsing="false" onAction="#modifyGasto" text="Modificar Gasto" />
+            <Button fx:id="filtro" prefWidth="Infinity" mnemonicParsing="false" onAction="#filtro" text="Filtrado de Gastos" />
+            <Button fx:id="alert" prefWidth="Infinity" mnemonicParsing="false" onAction="#configurarAlertas" text="Configurar Alertas" />
+            <Button fx:id="account" prefWidth="Infinity" mnemonicParsing="false" onAction="#crearCuentaCompartida" text="Cuenta Compartida" />
          </children>
          <BorderPane.margin>
             <Insets />
