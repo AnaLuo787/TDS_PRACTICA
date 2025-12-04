@@ -1,4 +1,4 @@
-package umu.tds.aplicacion;
+package umu.tds;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;

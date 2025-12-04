@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,10 +13,12 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.stage.Stage;
+import umu.tds.controlador.Controlador;
 import umu.tds.modelo.Categoria;
 import umu.tds.modelo.Gasto;
 import umu.tds.repository.impl.RepositorioGastoJSON;
@@ -42,10 +46,15 @@ public class ControladorModificarGasto_2{
     //PARA CAMBIAR DE VENTANA Y PODER MODIFICARLO
     private ControladorModificarGasto controladorModif;
     private ControladorVentanaPrincipal controladorVentanaPrincipal;
-    
-    
+    private Controlador controladorApp;
+    @FXML private ListView<Gasto> listaGastos;
     private Categoria categoriaGasto;
     private DatePicker fecha;
+    
+    public void setControladorApp(Controlador controlador) {
+        this.controladorApp = controlador;
+    }
+    
     public void setControladorModif(ControladorModificarGasto controlador) {//ESTO DESDE MODIF -> MODIF2
         this.controladorModif = controlador;
     }
@@ -147,6 +156,12 @@ public class ControladorModificarGasto_2{
             }
         });
     }
+    public void cargarGastos() {
+    	if(controladorApp != null) {
+    		listaGastos.setItems((ObservableList<Gasto>) controladorApp.getGastos());
+    	}
+    }
+
     @FXML
     void initialize() {
         assert modificar_2 != null : "fx:id=\"add\" was not injected: check your FXML file 'VentanaModificarGasto_2.fxml'.";
@@ -156,7 +171,7 @@ public class ControladorModificarGasto_2{
         assert fechaGasto != null : "fx:id=\"fechaGasto\" was not injected: check your FXML file 'VentanaModificarGasto_2.fxml'.";
         assert newCategoria != null : "fx:id=\"newCategoria\" was not injected: check your FXML file 'VentanaModificarGasto_2.fxml'.";
         assert nombreGasto != null : "fx:id=\"nombreGasto\" was not injected: check your FXML file 'VentanaModificarGasto_2.fxml'.";
-
+        
     }
 
 }

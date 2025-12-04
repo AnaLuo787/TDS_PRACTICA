@@ -152,6 +152,17 @@ public class ControladorModificarGasto {
         }
     }
     
+    public void guardarGastoModificado(Gasto gastoModificado) {
+        
+        // 1. Persistir el gasto modificado en el repositorio
+        // NOTA: Asumimos que el repositorio tiene un método 'update' o 'save'
+        repositorio.save(gastoModificado); 
+        
+        // 2. Recargar la tabla para mostrar los cambios
+        recargarTabla();
+        
+        mostrarEnTerminal("Gasto '" + gastoModificado.getNombre() + "' modificado y guardado.");
+    }
     /** Recarga los datos en el TableView. */
     public void recargarTabla() {
         // Asegúrate de usar el método setItems del TableView
