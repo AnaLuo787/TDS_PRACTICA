@@ -22,7 +22,7 @@ public class RepositorioGastoJSON implements Repositorio<Gasto> {
     private final ObjectMapper mapper;
     private final ObservableList<Gasto> gastos = FXCollections.observableArrayList();
     
-    private RepositorioGastoJSON() {
+    public RepositorioGastoJSON() { //porque en private??
         this.mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule()); // soporte para LocalDate
         mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
